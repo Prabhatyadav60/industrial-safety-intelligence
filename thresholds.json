@@ -24,6 +24,12 @@
   "risk_engine": {
     "poll_interval_seconds": 2.5,
     "red_threshold": 70,
-    "yellow_threshold": 40
+    "yellow_threshold": 40,
+    "changeover_recency_window_seconds": 600,
+    "rule_weights": {
+      "hot_work_gas_combo": 40,
+      "confined_space_pressure_combo": 35,
+      "maintenance_changeover_combo": 15
+    }
   }
 }
