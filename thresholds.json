@@ -1,0 +1,29 @@
+{
+  "_citation_status": "Interim values based on widely-published industrial LEL gas-alarm practice (low alarm 10-20% LEL, high alarm 40-60% LEL) consistent with OISD-STD-105 (Work Permit System) and OISD-STD-163 (Storage & Handling of Petroleum/Hazardous Materials) principles. Exact clause text and numbers are pulled into rag/corpus and cited precisely once the PDFs are ingested (see rag/ingest.py) -- do not treat these as verbatim OISD quotations.",
+  "gas": {
+    "unit": "pct_LEL",
+    "low_alarm_pct_lel": 15,
+    "high_alarm_pct_lel": 50,
+    "compound_trigger_pct_of_high_alarm": 0.30
+  },
+  "pressure": {
+    "unit": "kPa",
+    "ambient_baseline_kpa": 101.3,
+    "abnormal_deviation_kpa": 3.0
+  },
+  "temperature": {
+    "unit": "celsius",
+    "normal_range": [25, 45]
+  },
+  "hazard_class_baseline": {
+    "confined_space": {"gas_pct_lel_mean": 4.0, "gas_pct_lel_std": 1.5, "temp_mean": 34, "temp_std": 3, "pressure_std_kpa": 1.2},
+    "hot_work_area":  {"gas_pct_lel_mean": 3.0, "gas_pct_lel_std": 1.2, "temp_mean": 38, "temp_std": 4, "pressure_std_kpa": 0.8},
+    "storage":        {"gas_pct_lel_mean": 1.5, "gas_pct_lel_std": 0.8, "temp_mean": 30, "temp_std": 3, "pressure_std_kpa": 0.5},
+    "general":        {"gas_pct_lel_mean": 0.5, "gas_pct_lel_std": 0.4, "temp_mean": 28, "temp_std": 2, "pressure_std_kpa": 0.4}
+  },
+  "risk_engine": {
+    "poll_interval_seconds": 2.5,
+    "red_threshold": 70,
+    "yellow_threshold": 40
+  }
+}

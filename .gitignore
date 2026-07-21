@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+rag/corpus/*.pdf
+rag/chroma_db/
+.DS_Store
+*.log
+.local-tools/
+eval_output/

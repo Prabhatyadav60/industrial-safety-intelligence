@@ -1,0 +1,59 @@
+[
+  {
+    "zone_id": "Z1",
+    "name": "Gas Cleaning Plant",
+    "x": 120,
+    "y": 120,
+    "hazard_class": "confined_space",
+    "note": "Modeled on the RINL Visakhapatnam Steel Plant Gas Cleaning Plant (Jan 2025 incident site)."
+  },
+  {
+    "zone_id": "Z2",
+    "name": "Coke Oven Battery",
+    "x": 340,
+    "y": 100,
+    "hazard_class": "hot_work_area"
+  },
+  {
+    "zone_id": "Z3",
+    "name": "Blast Furnace Bay",
+    "x": 540,
+    "y": 130,
+    "hazard_class": "confined_space"
+  },
+  {
+    "zone_id": "Z4",
+    "name": "Welding & Fabrication Shop",
+    "x": 700,
+    "y": 160,
+    "hazard_class": "hot_work_area"
+  },
+  {
+    "zone_id": "Z5",
+    "name": "Raw Material Storage Yard",
+    "x": 150,
+    "y": 360,
+    "hazard_class": "storage"
+  },
+  {
+    "zone_id": "Z6",
+    "name": "Chemical Storage Shed",
+    "x": 360,
+    "y": 390,
+    "hazard_class": "storage"
+  },
+  {
+    "zone_id": "Z7",
+    "name": "Control Room",
+    "x": 610,
+    "y": 400,
+    "hazard_class": "general"
+  },
+  {
+    "zone_id": "Z8",
+    "name": "Maintenance Workshop",
+    "x": 760,
+    "y": 380,
+    "hazard_class": "general"
+  }
+]
