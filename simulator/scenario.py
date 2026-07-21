@@ -35,7 +35,7 @@ def sim_clock(start: datetime, tick: int) -> datetime:
     return start + timedelta(seconds=tick * TICK_SLEEP_SECONDS * TIME_SCALE)
 
 
-async def run_scenario(db, thresholds: dict, zones: list[dict]):
+async def run_scenario(db, thresholds: dict, zones: list[dict], realtime: bool = True):
     zone = next(z for z in zones if z["zone_id"] == SCENARIO_ZONE_ID)
     ambient = thresholds["pressure"]["ambient_baseline_kpa"]
     hc = thresholds["hazard_class_baseline"][zone["hazard_class"]]
@@ -131,7 +131,8 @@ async def run_scenario(db, thresholds: dict, zones: list[dict]):
                 (ts, f"naive single-sensor baseline WOULD fire (gas {reading['gas_pct_lel']:.1f}% LEL >= {high_alarm}% LEL)")
             )
 
-        await asyncio.sleep(TICK_SLEEP_SECONDS)
+        if realtime:
+            await asyncio.sleep(TICK_SLEEP_SECONDS)
 
     # Close everything out so the zone doesn't stay "active" forever for
     # anyone polling after the scenario finishes.
@@ -141,7 +142,7 @@ async def run_scenario(db, thresholds: dict, zones: list[dict]):
         {"$set": {"status": "closed", "end_time": end_ts}},
     )
     await db.maintenance_jobs.update_one(
-        {"job_id": maintenance_job["job_id"]}, {"$set": {"active": False}}
+        {"job_id": maintenance_job["job_id"]}, {"$set": {"active": False, "ended_at": end_ts}}
     )
 
     print("[scenario] Complete. Key sim-time events:")
