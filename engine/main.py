@@ -189,6 +189,20 @@ async def get_risk_history(zone_id: str, limit: int = 500):
     return docs
 
 
+@app.get("/alerts")
+async def get_alerts(limit: int = 50):
+    """Alerts are written by the Alert Orchestrator (a separate process) to
+    the `alerts` collection; the engine just exposes them read-only so the
+    dashboard has a single API surface to talk to."""
+    docs = (
+        await app.state.db.alerts.find({})
+        .sort("created_at", -1)
+        .limit(limit)
+        .to_list(limit)
+    )
+    return [_strip_id(d) for d in docs]
+
+
 @app.websocket("/ws/risk")
 async def ws_risk(websocket: WebSocket):
     await websocket.accept()
