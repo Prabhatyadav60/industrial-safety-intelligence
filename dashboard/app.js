@@ -194,10 +194,10 @@ async function pollOrchestratorAlerts() {
     const docs = await res.json();
     for (const doc of docs) {
       const match = alerts.find(
-        (a) => a.zone_id === doc.zone_id && Math.abs(new Date(a.timestamp) - new Date(doc.created_at)) < 15000
+        (a) => a.zone_id === doc.zone_id && Math.abs(new Date(a.timestamp) - new Date(doc.timestamp)) < 15000
       );
-      if (match && doc.rag_result) {
-        match.rag = doc.rag_result;
+      if (match && doc.rag) {
+        match.rag = doc.rag;
       }
     }
     renderAlertFeed();
