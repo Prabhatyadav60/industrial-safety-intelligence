@@ -114,6 +114,8 @@ mongod --dbpath ./.local-tools/data --port 27017 &
 # 2. Python env
 uv venv --python 3.11 .venv
 uv pip install -p .venv -r requirements.txt
+# for an exact reproduction of the versions this was built/tested against,
+# use requirements-lock.txt instead
 
 # 3. Configure secrets (never commit .env)
 cp .env.example .env
