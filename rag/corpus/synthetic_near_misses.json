@@ -1,0 +1,146 @@
+[
+  {
+    "id": "NM-01",
+    "zone_hazard_class": "confined_space",
+    "summary": "A gas-cleaning duct repair proceeded under an active hot-work permit while a confined-space entry permit was also open for the same crew. Gas concentration crept up slowly through the shift and stayed below the high-alarm setpoint the entire time, so no single alarm fired; the combination was only noticed when a relieving supervisor cross-checked both permits during handover.",
+    "pattern_tags": ["hot_work_gas_combo", "concurrent_permits_no_crosscheck"]
+  },
+  {
+    "id": "NM-02",
+    "zone_hazard_class": "confined_space",
+    "summary": "Modeled on public reporting of the January 2025 RINL Visakhapatnam Steel Plant Gas Cleaning Plant incident (8 worker fatalities): individually-normal conditions -- an active work permit, gas sensor readings each within their own limits, and a routine shift changeover -- reportedly combined in the same area without any single system flagging the compound state. This entry is illustrative of the pattern publicly described, not a claim of the specific technical root cause, which remains under investigation.",
+    "pattern_tags": ["hot_work_gas_combo", "maintenance_changeover_combo", "vizag_pattern"]
+  },
+  {
+    "id": "NM-03",
+    "zone_hazard_class": "confined_space",
+    "summary": "During inspection of a reactor vessel, the extraction fan servicing it had been running with a partially blocked filter for two days. Duct pressure had drifted about 4 kPa below ambient before anyone noticed, and only a physical inspection during a maintenance round caught the loss of effective ventilation.",
+    "pattern_tags": ["confined_space_pressure_combo", "ventilation_failure"]
+  },
+  {
+    "id": "NM-04",
+    "zone_hazard_class": "confined_space",
+    "summary": "A confined-space entry permit for tank cleaning was extended twice without a fresh gas test being logged for the extension periods. The gas detector used was later found to have been left in an alarm-inhibited test mode from the prior shift's calibration check.",
+    "pattern_tags": ["sensor_calibration_drift", "concurrent_permits_no_crosscheck"]
+  },
+  {
+    "id": "NM-05",
+    "zone_hazard_class": "hot_work_area",
+    "summary": "Welding work on a pipe rack continued through a shift changeover with only a verbal handover between supervisors. The incoming shift was unaware that a nearby purge line had been left partially open, and flammable vapor concentration near the hot work rose unnoticed for almost an hour.",
+    "pattern_tags": ["hot_work_gas_combo", "maintenance_changeover_combo"]
+  },
+  {
+    "id": "NM-06",
+    "zone_hazard_class": "hot_work_area",
+    "summary": "Two separate hot-work permits were issued for adjacent bays on the same coke oven battery without either permit issuer being aware of the other. Sparks from one job briefly caught wind toward the second work area before a passing electrician noticed and raised the alarm.",
+    "pattern_tags": ["concurrent_permits_no_crosscheck"]
+  },
+  {
+    "id": "NM-07",
+    "zone_hazard_class": "hot_work_area",
+    "summary": "A grinding job in a fabrication shop ran while gas concentration from an adjacent solvent-degreasing operation slowly rose, staying under the facility's high-alarm threshold throughout. Only a contractor's personal gas monitor, set to a more conservative low-alarm level, caught the trend before the shift ended.",
+    "pattern_tags": ["hot_work_gas_combo", "sensor_calibration_drift"]
+  },
+  {
+    "id": "NM-08",
+    "zone_hazard_class": "hot_work_area",
+    "summary": "A hot-work permit for flange repair was issued during a scheduled maintenance window on the same unit's cooling system. The maintenance crew and the hot-work crew were unaware of each other's presence until a cooling-water isolation valve closure briefly caused unexpected temperature rise near the weld site.",
+    "pattern_tags": ["maintenance_changeover_combo", "concurrent_permits_no_crosscheck"]
+  },
+  {
+    "id": "NM-09",
+    "zone_hazard_class": "storage",
+    "summary": "A forklift battery-charging hot-work exemption was applied inside a chemical storage shed during a stock-taking exercise. Ventilation fans had been switched off to reduce noise during the count, letting hydrogen from charging accumulate closer to the low-alarm threshold than usual before the shift ended.",
+    "pattern_tags": ["hot_work_gas_combo", "ventilation_failure"]
+  },
+  {
+    "id": "NM-10",
+    "zone_hazard_class": "storage",
+    "summary": "Drums of an oxidizing agent were temporarily stored adjacent to a flammable-solvent rack during a warehouse reorganization, a placement that would have failed a routine audit but wasn't flagged because it coincided with a shift changeover when the area supervisor's attention was on personnel handover, not layout.",
+    "pattern_tags": ["maintenance_changeover_combo"]
+  },
+  {
+    "id": "NM-11",
+    "zone_hazard_class": "storage",
+    "summary": "A fertilizer storage building's gas detectors had not been recalibrated on schedule due to a maintenance backlog. When a nearby ammonia transfer operation briefly overpressured a line, the delayed detectors registered the leak nearly ten minutes after workers reported smelling ammonia directly.",
+    "pattern_tags": ["sensor_calibration_drift"]
+  },
+  {
+    "id": "NM-12",
+    "zone_hazard_class": "storage",
+    "summary": "A routine maintenance job on a warehouse sprinkler system left a section of the fire suppression network isolated overnight. No hazardous work was scheduled, but the isolation was not logged in the permit system, so the following shift's hot-work permit for an unrelated repair was approved without anyone checking sprinkler coverage.",
+    "pattern_tags": ["concurrent_permits_no_crosscheck", "maintenance_changeover_combo"]
+  },
+  {
+    "id": "NM-13",
+    "zone_hazard_class": "general",
+    "summary": "A control-room air-intake filter had been degrading for weeks, reducing effective pressurization without tripping any single maintenance threshold. During a minor flaring event in an adjacent unit, trace hydrocarbon odor was detected inside the control room itself before operators realized the pressurization margin had eroded.",
+    "pattern_tags": ["confined_space_pressure_combo", "ventilation_failure"]
+  },
+  {
+    "id": "NM-14",
+    "zone_hazard_class": "general",
+    "summary": "A shift changeover in the maintenance workshop happened while an electrical isolation permit was still technically open on a machine that had already been reconnected by the outgoing shift. The incoming shift nearly began isolation verification on power that was live.",
+    "pattern_tags": ["maintenance_changeover_combo", "concurrent_permits_no_crosscheck"]
+  },
+  {
+    "id": "NM-15",
+    "zone_hazard_class": "general",
+    "summary": "A safety committee review (per the facility's Section 41G-style safety committee practice) caught that three separate near-misses over two months had each involved a shift changeover during an open permit, a pattern no single incident report had connected because each was investigated in isolation.",
+    "pattern_tags": ["maintenance_changeover_combo"]
+  },
+  {
+    "id": "NM-16",
+    "zone_hazard_class": "hot_work_area",
+    "summary": "A worker in a coke oven battery area invoked their right to flag imminent danger after noticing hot-work sparks near a gas main that management's own gas readings still classified as within normal range. Inspection afterward confirmed the sensor's sampling point was slightly downwind of the actual leak path.",
+    "pattern_tags": ["hot_work_gas_combo", "sensor_calibration_drift"]
+  },
+  {
+    "id": "NM-17",
+    "zone_hazard_class": "confined_space",
+    "summary": "Confined-space entry for a blast furnace bay inspection was approved after a gas test at the entry point only, without a follow-up test deeper in the vessel. Gas stratification meant the interior reading was materially different from the entry-point reading taken thirty minutes earlier.",
+    "pattern_tags": ["confined_space_pressure_combo"]
+  },
+  {
+    "id": "NM-18",
+    "zone_hazard_class": "confined_space",
+    "summary": "A pressure-relief valve maintenance job coincided with a hot-work permit for an adjacent weld repair in the same confined bay. Neither permit issuer flagged the combination as requiring the standard's combined hot-work/confined-space permit format, and the job proceeded as two separately-authorized activities.",
+    "pattern_tags": ["hot_work_gas_combo", "confined_space_pressure_combo", "concurrent_permits_no_crosscheck"]
+  },
+  {
+    "id": "NM-19",
+    "zone_hazard_class": "hot_work_area",
+    "summary": "A welding crew's hot-work permit was renewed automatically at shift changeover without a fresh atmosphere test, on the assumption that conditions from the prior shift still held. A nearby solvent-cleaning operation had started in the interim, incrementally raising vapor levels near the weld site.",
+    "pattern_tags": ["hot_work_gas_combo", "maintenance_changeover_combo"]
+  },
+  {
+    "id": "NM-20",
+    "zone_hazard_class": "storage",
+    "summary": "A tank farm's high-level alarm and its independent gas detection system were maintained by two different contractors on two different schedules. A near-simultaneous overdue calibration on both meant a minor vapor release during a transfer operation went undetected by either system for longer than either contractor's own SLA allowed.",
+    "pattern_tags": ["sensor_calibration_drift", "concurrent_permits_no_crosscheck"]
+  },
+  {
+    "id": "NM-21",
+    "zone_hazard_class": "general",
+    "summary": "An emergency standard (issued under a Section 41E-style provision after an earlier incident elsewhere in the sector) had been circulated to shift supervisors but not yet incorporated into the site's written procedures. During a changeover, the incoming supervisor was unaware of the interim standard and authorized a job it would have restricted.",
+    "pattern_tags": ["maintenance_changeover_combo"]
+  },
+  {
+    "id": "NM-22",
+    "zone_hazard_class": "confined_space",
+    "summary": "A maintenance job to clear a suspected partial blockage in an extraction duct was still logged as active when a hot-work permit was issued for the same duct section a day later. The maintenance job's status hadn't been formally closed in the permit system, so the cross-check that should have flagged the overlap never triggered.",
+    "pattern_tags": ["maintenance_changeover_combo", "confined_space_pressure_combo", "concurrent_permits_no_crosscheck"]
+  },
+  {
+    "id": "NM-23",
+    "zone_hazard_class": "hot_work_area",
+    "summary": "A contractor crew unfamiliar with the site's permit conventions treated a combined hot-work/confined-space job as two separate lower-priority permits, each individually approved by a different area authority who didn't know about the other's sign-off.",
+    "pattern_tags": ["concurrent_permits_no_crosscheck"]
+  },
+  {
+    "id": "NM-24",
+    "zone_hazard_class": "storage",
+    "summary": "During a chemical storage shed's quarterly stock audit, temporary lighting rigs (a minor ignition source) were brought in without a formal hot-work assessment, on the reasoning that the audit itself wasn't 'hot work'. Gas readings that day were unremarkable, but the ignition-source risk itself had gone through no permit review at all.",
+    "pattern_tags": ["hot_work_gas_combo", "concurrent_permits_no_crosscheck"]
+  }
+]

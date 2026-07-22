@@ -108,8 +108,10 @@ industrial-safety-intelligence/
 Requires Python 3.11 (not 3.14 — some dependencies here don't yet ship 3.14 wheels).
 
 ```bash
-# 1. Local MongoDB (or point MONGODB_URI in .env at your own Atlas cluster)
-mongod --dbpath ./.local-tools/data --port 27017 &
+# 1. MongoDB: either run one locally (e.g. `brew install mongodb-community@7.0`,
+# then `mongod --dbpath /path/to/data --port 27017 &`) or create a free MongoDB
+# Atlas cluster and point MONGODB_URI in .env at it. Defaults to
+# mongodb://127.0.0.1:27017 if you don't set it.
 
 # 2. Python env
 uv venv --python 3.11 .venv

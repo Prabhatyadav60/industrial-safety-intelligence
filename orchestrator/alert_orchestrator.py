@@ -23,7 +23,7 @@ import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
-from anthropic import AsyncAnthropic
+from anthropic import AsyncAnthropic, AsyncAnthropicBedrock
 from dotenv import load_dotenv
 from motor.motor_asyncio import AsyncIOMotorClient
 
@@ -31,12 +31,11 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "rag"))
 load_dotenv(REPO_ROOT / ".env")
 
-from query_agent import query_safety_agent  # noqa: E402
+from query_agent import MODEL_ID, get_llm_client, query_safety_agent  # noqa: E402
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 log = logging.getLogger("orchestrator")
 
-ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-5")
 POLL_INTERVAL_SECONDS = 2.0
 
 NOTIFICATION_CHANNELS = [
@@ -61,7 +60,9 @@ def simulate_notifications(zone_name: str) -> list[str]:
     return [f"{channel} -- notified re: {zone_name}" for channel in NOTIFICATION_CHANNELS]
 
 
-async def draft_incident_report(zone_snapshot: dict, rag_result: dict, detected_at: datetime, client: AsyncAnthropic) -> str:
+async def draft_incident_report(
+    zone_snapshot: dict, rag_result: dict, detected_at: datetime, client: AsyncAnthropic | AsyncAnthropicBedrock
+) -> str:
     prompt = f"""Draft a preliminary incident report in the style of a regulatory safety
 incident report, based on the following detected compound risk. Use exactly these section
 headers: Zone, Time Detected, Conditions Detected, Regulation Matched, Similar Past Incident,
@@ -77,14 +78,14 @@ Cited regulation: {rag_result.get('cited_regulation', 'n/a')}
 Similar past incident: {rag_result.get('similar_past_incident') or 'none identified'}
 """
     response = await client.messages.create(
-        model=ANTHROPIC_MODEL,
+        model=MODEL_ID,
         max_tokens=800,
         messages=[{"role": "user", "content": prompt}],
     )
     return "".join(block.text for block in response.content if block.type == "text")
 
 
-async def handle_red_event(db, zones: list[dict], event: dict, client: AsyncAnthropic):
+async def handle_red_event(db, zones: list[dict], event: dict, client: AsyncAnthropic | AsyncAnthropicBedrock):
     t0 = datetime.now(timezone.utc)
     zone = next((z for z in zones if z["zone_id"] == event["zone_id"]), None)
     zone_snapshot = {
@@ -154,7 +155,7 @@ async def handle_red_event(db, zones: list[dict], event: dict, client: AsyncAnth
 async def orchestrator_loop():
     db = get_db()
     zones = load_zones()
-    client = AsyncAnthropic()
+    client = get_llm_client()
     await db.alerts.create_index([("zone_id", 1), ("created_at", -1)])
 
     log.info("Alert orchestrator started. Watching red_events every %ss.", POLL_INTERVAL_SECONDS)
