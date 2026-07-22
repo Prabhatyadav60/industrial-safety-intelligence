@@ -185,8 +185,10 @@ function renderAlertFeed() {
     .join("");
 }
 
-// Best-effort enrichment from the orchestrator's /alerts endpoint (added in
-// a later phase). Silently no-ops until that endpoint exists.
+// Pulls alerts from the orchestrator's /alerts endpoint: enriches any
+// client-observed RED entry with its RAG explanation once ready, and adds
+// cards for alerts this session never saw transition live (e.g. the page
+// was loaded/refreshed after the RED event already happened).
 async function pollOrchestratorAlerts() {
   try {
     const res = await fetch(`${API}/alerts?limit=50`);
@@ -196,10 +198,21 @@ async function pollOrchestratorAlerts() {
       const match = alerts.find(
         (a) => a.zone_id === doc.zone_id && Math.abs(new Date(a.timestamp) - new Date(doc.timestamp)) < 15000
       );
-      if (match && doc.rag) {
-        match.rag = doc.rag;
+      if (match) {
+        if (doc.rag) match.rag = doc.rag;
+      } else {
+        alerts.push({
+          zone_id: doc.zone_id,
+          zone_name: doc.zone_name,
+          score: doc.score,
+          triggers: doc.triggers || [],
+          timestamp: doc.timestamp,
+          rag: doc.rag || null,
+        });
       }
     }
+    alerts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    alerts = alerts.slice(0, 50);
     renderAlertFeed();
   } catch (e) {
     // engine/orchestrator not up yet -- ignore

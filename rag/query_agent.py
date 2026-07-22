@@ -85,10 +85,24 @@ def format_context(docs) -> str:
     return "\n\n".join(blocks)
 
 
+_index_cache = None
+
+
+def _get_cached_index():
+    # load_index() reconstructs the HuggingFace embedding model (network
+    # round-trips to check for updates) and reopens the persisted Chroma
+    # store -- both are wasted work if repeated on every alert, so a single
+    # process (the orchestrator) loads this once and reuses it.
+    global _index_cache
+    if _index_cache is None:
+        _index_cache = load_index()
+    return _index_cache
+
+
 async def query_safety_agent(zone_snapshot: dict, client: AsyncAnthropic | AsyncAnthropicBedrock | None = None) -> dict:
     """Main entrypoint: given a RED zone snapshot, return the structured
     {explanation, cited_regulation, similar_past_incident, confidence} response."""
-    store = load_index()
+    store = _get_cached_index()
     query = build_retrieval_query(zone_snapshot)
     docs = store.similarity_search(query, k=TOP_K)
     context = format_context(docs)
