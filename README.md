@@ -121,9 +121,14 @@ uv pip install -p .venv -r requirements.txt
 
 # 3. Configure secrets (never commit .env)
 cp .env.example .env
-# edit .env: set ANTHROPIC_API_KEY, and MONGODB_URI if not using local Mongo
+# edit .env: set MONGODB_URI if not using local Mongo, and either:
+#   - ANTHROPIC_API_KEY (direct Anthropic API), or
+#   - AWS_BEDROCK_BEARER_TOKEN + BEDROCK_MODEL_ID + AWS_REGION (AWS Bedrock --
+#     takes priority over ANTHROPIC_API_KEY when both are set; this is what
+#     the project was actually built and demoed against)
 
-# 4. Build the RAG vector index (one-time, or whenever rag/corpus/ changes)
+# 4. Build the RAG vector index (one-time, or whenever rag/corpus/ changes).
+# Embeddings run locally via sentence-transformers -- no paid API needed for this step.
 .venv/bin/python rag/ingest.py
 ```
 
@@ -154,7 +159,23 @@ cd dashboard && python3 -m http.server 8080
 
 Watch the Gas Cleaning Plant zone climb from GREEN through YELLOW to RED as the
 scripted incident plays out, with the alert feed populating with the RAG
-agent's explanation, cited regulation, and matched near-miss pattern.
+agent's explanation, cited regulation, and matched near-miss pattern. The
+dashboard also pulls historical alerts from `/alerts` on load, so refreshing
+the page (or opening it after the fact) still shows past RED events, not just
+ones observed live.
+
+### Verified end-to-end
+
+This has been run live against real AWS Bedrock (Claude) calls, not just
+mocked: Z1 climbs GREEN → YELLOW (score 55, hot-work+gas and
+maintenance+changeover rules stacking) → RED (score 75-90, once the
+confined-space+pressure rule also fires), the orchestrator picks up the
+`red_events` doc, and the RAG agent returns a grounded explanation citing
+OISD-STD-105's combined-permit requirement and matching it to the Vizag GCP
+near-miss entry, followed by a full auto-drafted incident report. Measured
+"chaos to coordinated response" time (RED detected → incident report drafted)
+is **~25-40 seconds** in isolation; expect it to run slower if you have many
+other CPU/network-heavy processes competing for the same machine at demo time.
 
 To reproduce the measured lead-time number without waiting on the live demo:
 
